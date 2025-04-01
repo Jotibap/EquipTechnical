@@ -110,3 +110,26 @@ class EquipmentRental {
         scanner.close();
     }
 }
+
+
+//Output
+
+"C:\Program Files\Java\jdk-22\bin\java.exe" "-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2024.1.1\lib\idea_rt.jar=51534:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2024.1.1\bin" -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 -classpath "C:\equip tech\out\production\equip tech" EquipmentRental
+Enter number of providers: 5
+Enter number of edges: 4
+Enter edges (providerA providerB):
+1 2
+2 3
+3 4
+4 5
+Enter number of availabilities: 3
+Enter availabilities (provider equipment1 equipment2 ...):
+1 excavator
+3 bulldozer
+4 excavator
+Enter start provider: 2
+Enter target equipment: excavator
+[2, 1]
+
+Process finished with exit code 0
+
