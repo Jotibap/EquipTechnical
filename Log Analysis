@@ -1,0 +1,95 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+class MaintenanceLogAnalysis {
+
+    public static List<Integer> analyzeLogs(List<Log> logs, List<DateRange> queries) {
+        List<Integer> totals = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        for (DateRange range : queries) {
+            LocalDate startDate = LocalDate.parse(range.start, formatter);
+            LocalDate endDate = LocalDate.parse(range.end, formatter);
+            int totalCost = 0;
+
+            for (Log log : logs) {
+                LocalDate logDate = LocalDate.parse(log.date, formatter);
+                if (!logDate.isBefore(startDate) && !logDate.isAfter(endDate)) {
+                    totalCost += log.cost;
+                }
+            }
+            totals.add(totalCost);
+        }
+        return totals;
+    }
+
+    static class Log {
+        int id;
+        String date;
+        int cost;
+
+        public Log(int id, String date, int cost) {
+            this.id = id;
+            this.date = date;
+            this.cost = cost;
+        }
+    }
+
+    static class DateRange {
+        String start;
+        String end;
+
+        public DateRange(String start, String end) {
+            this.start = start;
+            this.end = end;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter number of logs: ");
+        int logCount = scanner.nextInt();
+        scanner.nextLine();
+
+        List<Log> logs = new ArrayList<>();
+        System.out.println("Enter logs (equipment_id date cost):");
+        for (int i = 0; i < logCount; i++) {
+            String[] input = scanner.nextLine().split(" ");
+            logs.add(new Log(Integer.parseInt(input[0]), input[1], Integer.parseInt(input[2])));
+        }
+
+        System.out.print("Enter number of queries: ");
+        int queryCount = scanner.nextInt();
+        scanner.nextLine();
+
+        List<DateRange> queries = new ArrayList<>();
+        System.out.println("Enter queries (start_date end_date):");
+        for (int i = 0; i < queryCount; i++) {
+            String[] input = scanner.nextLine().split(" ");
+            queries.add(new DateRange(input[0], input[1]));
+        }
+
+        List<Integer> result = analyzeLogs(logs, queries);
+        System.out.println(result);
+
+        scanner.close();
+    }
+}
+
+//Output
+Enter number of logs: 3
+Enter logs (equipment_id date cost):
+        101 2023-03-01 500
+        102 2023-03-05 300
+        103 2023-03-10 700
+Enter number of queries: 2
+Enter queries (start_date end_date):
+        2023-03-01 2023-03-05
+        2023-03-01 2023-03-10
+        [800, 1500]
+
+Process finished with exit code 0
