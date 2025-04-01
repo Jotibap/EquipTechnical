@@ -75,6 +75,7 @@ class OptimalEquipmentDeal {
     }
 }
 
+
 //Output
 
 Enter number of requests: 2
